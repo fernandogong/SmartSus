@@ -450,3 +450,8 @@ API Designada para o sistema de controle do aplicativo SmartSus, um aplicativo r
 |404| não foi encontrado agendamento com esse ID
 
 --------------------------------------------
+## Autor
+Feito por [@fernandogong](https://github.com/fernandogong).
+
+LinkedIn: [Fernando Gong](https://www.linkedin.com/in/fernando-gong/) <br>
+Email: [fernand0cg0ng@gmail.com](mailto:fernand0cg0ng@gmail.com)
