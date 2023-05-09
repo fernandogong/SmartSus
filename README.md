@@ -1,6 +1,6 @@
-# SmartSUS
+<h1 align="center">SmartSUS</h1>
 
-API Designada para o sistema de controle do aplicativo SmartSus, um aplicativo revolucionário que ajuda clientes a encontrar médicos próximos a preços justos. Com um simples toque no seu smartphone, você pode encontrar médicos qualificados e experientes que atendem perto de você, economizando tempo e dinheiro.
+<h3 align="center">API Designada para o sistema de controle do aplicativo SmartSus, um aplicativo revolucionário que ajuda clientes a encontrar médicos próximos a preços justos. Com um simples toque no seu smartphone, você pode encontrar médicos qualificados e experientes que atendem perto de você, economizando tempo e dinheiro.</h3>
 
 <div align="center">
     <img src="logico-smartsus.png" alt="modelo logico do banco de dados">
