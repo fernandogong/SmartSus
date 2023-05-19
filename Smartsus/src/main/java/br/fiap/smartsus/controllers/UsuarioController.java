@@ -26,20 +26,23 @@ import org.springframework.hateoas.CollectionModel;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping("/api/usuarios")    
+@RequestMapping("/usuarios")    
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("")
     public EntityModel<Usuario> postUsuario(@RequestBody Usuario usuario) {
         Usuario savedUsuario = usuarioRepository.save(usuario);
         return EntityModel.of(savedUsuario, linkTo(methodOn(UsuarioController.class).getByIdUsuario(savedUsuario.getId())).withSelfRel());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
     public CollectionModel<EntityModel<Usuario>> getUsuario(Pageable pageable) {
         Page<Usuario> page = usuarioRepository.findAll(pageable);
@@ -55,6 +58,7 @@ public class UsuarioController {
         return resources;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public EntityModel<Usuario> getByIdUsuario(@PathVariable Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
@@ -68,6 +72,7 @@ public class UsuarioController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') and #id == authentication.principal.id")
     @PutMapping("/{id}")
     public EntityModel<Usuario> putUsuario(@PathVariable Long id, @RequestBody Usuario usuarioUpdated) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
@@ -83,6 +88,7 @@ public class UsuarioController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') and #id == authentication.principal.id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
@@ -94,6 +100,3 @@ public class UsuarioController {
         }
     }
 }
-
-
-

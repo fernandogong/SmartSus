@@ -21,14 +21,16 @@ import org.springframework.hateoas.Link;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping("/api/cartoes")    
+@RequestMapping("/cartoes")    
 public class CartaoController {
 
     @Autowired
     private CartaoRepository cartaoRepository;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("")
     public CollectionModel<EntityModel<Cartao>> getCartao() {
         List<EntityModel<Cartao>> cartoes = cartaoRepository.findAll().stream()
@@ -40,7 +42,7 @@ public class CartaoController {
         return CollectionModel.of(cartoes, Link.of("/api/cartoes").withSelfRel());
     }
     
-    
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("")
     public ResponseEntity<EntityModel<Cartao>> postCartao(@RequestBody Cartao cartao) {
         Cartao novoCartao = cartaoRepository.save(cartao);
@@ -51,6 +53,7 @@ public class CartaoController {
         return ResponseEntity.created(cartaoResource.getRequiredLink("self").toUri()).body(cartaoResource);
     }
     
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<Cartao>> getByIdCartao(@PathVariable Long id) {
         Optional<Cartao> cartao = cartaoRepository.findById(id);
@@ -65,6 +68,7 @@ public class CartaoController {
         }
     }
 
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCartao(@PathVariable Long id) {
         Optional<Cartao> optionalCartao = cartaoRepository.findById(id);

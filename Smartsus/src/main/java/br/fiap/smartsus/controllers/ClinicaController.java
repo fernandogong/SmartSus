@@ -26,20 +26,23 @@ import org.springframework.hateoas.CollectionModel;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping("/api/clinicas")    
+@RequestMapping("/clinicas")    
 public class ClinicaController {
 
     @Autowired
     private ClinicaRepository clinicaRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("")
     public EntityModel<Clinica> postClinica(@RequestBody Clinica clinica) {
         Clinica savedClinica = clinicaRepository.save(clinica);
         return EntityModel.of(savedClinica, linkTo(methodOn(ClinicaController.class).getByIdClinica(savedClinica.getId())).withSelfRel());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
     public CollectionModel<EntityModel<Clinica>> getClinica(Pageable pageable) {
         Page<Clinica> page = clinicaRepository.findAll(pageable);
@@ -55,6 +58,7 @@ public class ClinicaController {
         return resources;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public EntityModel<Clinica> getByIdClinica(@PathVariable Long id) {
         Optional<Clinica> clinica = clinicaRepository.findById(id);
@@ -65,9 +69,9 @@ public class ClinicaController {
         } else {
             return EntityModel.of(new Clinica());
         }
-
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public EntityModel<Clinica> putClinica(@PathVariable Long id, @RequestBody Clinica clinicaUpdated) {
         Optional<Clinica> optionalClinica = clinicaRepository.findById(id);
@@ -83,6 +87,7 @@ public class ClinicaController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClinica(@PathVariable Long id) {
         Optional<Clinica> optionalClinica = clinicaRepository.findById(id);
@@ -93,5 +98,4 @@ public class ClinicaController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

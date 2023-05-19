@@ -26,14 +26,16 @@ import org.springframework.hateoas.CollectionModel;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 
 @RestController
-@RequestMapping("/api/agendamentos")    
+@RequestMapping("/agendamentos")    
 public class AgendamentoController {
 
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("")
     public EntityModel<Agendamento> postAgendamento(@RequestBody Agendamento agendamento) {
         Agendamento savedAgendamento = agendamentoRepository.save(agendamento);
@@ -54,6 +56,7 @@ public class AgendamentoController {
         resources.add(linkTo(methodOn(AgendamentoController.class).getAgendamento(pageable)).withSelfRel());
         return resources;
     }
+    
     @GetMapping("/{id}")
     public EntityModel<Agendamento> getByIdAgendamento(@PathVariable Long id) {
         Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
@@ -64,9 +67,9 @@ public class AgendamentoController {
         } else {
             return EntityModel.of(new Agendamento());
         }
-
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{id}")
     public EntityModel<Agendamento> putAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamentoUpdated) {
         Optional<Agendamento> optionalAgendamento = agendamentoRepository.findById(id);
@@ -80,6 +83,7 @@ public class AgendamentoController {
         }
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAgendamento(@PathVariable Long id) {
         Optional<Agendamento> optionalAgendamento = agendamentoRepository.findById(id);
