@@ -233,7 +233,6 @@
       }
     }
   }
-}
     "/usuarios": {
       "post": {
         "summary": "Cadastrar usuario",
@@ -433,7 +432,6 @@
       }
     }
   }
-}
     "/cartoes": {
       "post": {
         "summary": "Cadastrar cartao",
@@ -599,7 +597,6 @@
       }
     }
   }
-}
     "/agendamentos": {
       "post": {
         "summary": "Cadastrar agendamento",
