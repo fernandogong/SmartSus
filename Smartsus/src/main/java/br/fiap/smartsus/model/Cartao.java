@@ -35,7 +35,6 @@ public class Cartao {
   @Pattern(regexp = "\"\\\\d{3}\\\\.\\\\d{3}\\\\.\\\\d{3}-\\\\d{2}\"")
   private String cpf;
 
-  @EmbeddedId
   @ManyToOne(optional = true)
   @JoinColumn(name = "usuario_id")
   private Usuario usuario;

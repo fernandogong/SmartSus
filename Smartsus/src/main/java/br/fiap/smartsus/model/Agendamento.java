@@ -21,17 +21,14 @@ public class Agendamento {
   @FutureOrPresent
   private LocalDate AgendamentoData;
 
-  @EmbeddedId
   @ManyToOne(optional = true)
   @JoinColumn(name = "usuario_id")
   private Usuario usuarios;
 
-  @EmbeddedId
   @ManyToOne(optional = true)
   @JoinColumn(name = "clinica_id")
-  private Clinica clinicas;
+  private Clinica clinica;
   
 
   
-
 }
